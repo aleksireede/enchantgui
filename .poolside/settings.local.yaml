@@ -1,0 +1,25 @@
+tools:
+    shell:
+        allow:
+            - find *
+            - head *
+            - cd *
+            - ./gradlew dependencies *
+            - ./gradlew configurations
+            - tail *
+            - grep *
+            - ./gradlew dependencyResolutionManagement
+            - ./gradlew *
+            - curl *
+            - sort *
+            - javap *
+            - jar tf *
+            - echo *
+            - unzip *
+            - cat *
+            - xargs *
+            - read jar
+            - wc *
+            - jar xf "$JAR" *
+            - sed *
+            - git diff HEAD *
