@@ -7,6 +7,7 @@ import dev.triumphteam.gui.guis.GuiItem;
 import io.github.aleksireede.enchantgui.EnchantGUIPlugin;
 import io.github.aleksireede.enchantgui.NbtUtils;
 import io.github.aleksireede.enchantgui.config.Enchants;
+import io.github.aleksireede.enchantgui.config.EShopConfig;
 import io.github.aleksireede.enchantgui.economy.PaymentStrategy;
 import io.github.aleksireede.enchantgui.localization.LocalizationManager;
 import io.github.aleksireede.enchantgui.permissions.EShopPermissionSys;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author aleksireede
@@ -39,21 +41,34 @@ public class ShopMenu {
 
     public void showMainMenu(Player player) {
         Gui gui = Gui.gui()
-                .rows(4)
+                .rows(6)
                 .title(Component.text(EnchantGUIPlugin.getInstance().getMainConfig().getMenuName()))
                 .create();
 
         List<ItemStack> enchantList = enchants.getEnchantList();
+        Set<String> disabled = EnchantGUIPlugin.getInstance().getMainConfig().getDisabledEnchants();
         for (ItemStack itemStack : enchantList) {
+            // Defensive check: also filter disabled enchantments at display time
+            // in case the Enchants list was built before a config reload
+            boolean itemDisabled = false;
+            for (Enchantment ench : itemStack.getEnchantments().keySet()) {
+                String registryKey = ench.getKey().getKey();
+                if (disabled.contains(registryKey) || disabled.contains(EShopConfig.normalizeEnchantKey(registryKey))) {
+                    itemDisabled = true;
+                    break;
+                }
+            }
+            if (itemDisabled) {
+                continue;
+            }
             GuiItem guiItem = new GuiItem(itemStack);
             guiItem.setAction(_ -> generateEnchantMenu(gui, itemStack, player).open(player));
 
             if (!EnchantGUIPlugin.getInstance().getMainConfig().getShowPerItem()) {
                 gui.addItem(guiItem);
-            }
-
-            if (isShowPerItem(itemStack, player.getInventory().getItemInMainHand()))
+            } else if (isShowPerItem(itemStack, player.getInventory().getItemInMainHand())) {
                 gui.addItem(guiItem);
+            }
 
             EnchantGUIPlugin.debug("ShowPerItem= %b".formatted(EnchantGUIPlugin.getInstance().getMainConfig().getShowPerItem()));
             EnchantGUIPlugin.debug("IsShowPerItem= %b".formatted(isShowPerItem(itemStack, player.getInventory().getItemInMainHand())));
@@ -61,6 +76,7 @@ public class ShopMenu {
             EnchantGUIPlugin.debug("HeldItem= %s".formatted(player.getInventory().getItemInMainHand().toString()));
         }
 
+        EnchantGUIPlugin.debug("showMainMenu: enchantList size = " + enchantList.size());
         gui.open(player);
     }
 
@@ -132,7 +148,7 @@ public class ShopMenu {
 
         // Prevent applying an enchantment that's already on the item
         if (playerHand.getEnchantmentLevel(enchantment) > 0) {
-            tell(player, lm.getLanguageString("already-enchanted"));
+            tell(player, lm.getLanguageString("already-enchanted", "Your item already has this enchantment!"));
             return;
         }
 

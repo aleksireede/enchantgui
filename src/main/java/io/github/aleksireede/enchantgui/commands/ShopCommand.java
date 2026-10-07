@@ -51,6 +51,8 @@ public class ShopCommand extends BaseCommand {
         EnchantGUIPlugin.getInstance().onReload();
         EnchantGUIPlugin.getInstance().getLm().reload(player);
         EnchantGUIPlugin.getInstance().getShopMenu().reload();
+        var disabled = EnchantGUIPlugin.getInstance().getMainConfig().getDisabledEnchants();
+        ChatUtil.sendMessage(player, prefix + " &aReloaded EnchantGUI. Disabled enchantments: &e" + disabled.size() + " &7" + disabled);
         EnchantGUIPlugin.getInstance()
                 .getLogger()
                 .info(() -> "%s %s using: %s".formatted(getName(),

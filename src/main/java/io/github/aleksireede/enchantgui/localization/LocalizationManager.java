@@ -48,6 +48,10 @@ public class LocalizationManager {
     public String getLanguageString(String path) {
         return ChatUtil.color(Objects.requireNonNull(getActiveLanguageFile().getConfig().getString(path)));
     }
+
+    public String getLanguageString(String path, String def) {
+        return ChatUtil.color(getActiveLanguageFile().getConfig().getString(path, def));
+    }
     
     public void reload(CommandSender sender) {
         for (Map.Entry<String, Map<String, LocalizedConfigFile>> entry : languages.entrySet()) {

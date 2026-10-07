@@ -14,7 +14,3 @@ Please see attached table below for version support.
 ## Soft dependencies
 * [Vault API](http://dev.bukkit.org/bukkit-plugins/vault/)
 * [PlayerPoints](https://www.spigotmc.org/resources/playerpoints.80745/)
-
-## Support
-[![Discord Support](https://img.shields.io/discord/881610309637398538?color=%235865F2&label=support&logo=Discord&logoColor=white&style=for-the-badge)](https://discord.gg/4v9gsBCgg8)
-

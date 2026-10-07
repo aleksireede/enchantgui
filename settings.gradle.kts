@@ -18,6 +18,7 @@ dependencyResolutionManagement {
             plugin("plugin-yml", "net.minecrell.plugin-yml.bukkit").version("0.6.0")
 
             library("paper-api", "io.papermc.paper:paper-api:26.2.build.100-stable")
+            library("nbt-api", "de.tr7zw:item-nbt-api:2.16.0")
             library("adventure-api", "net.kyori:adventure-api:5.2.0")
             library("triumph-gui", "dev.triumphteam:triumph-gui-paper:3.1.13")
             library("vault-api", "com.github.MilkBowl:VaultAPI:1.7.1")

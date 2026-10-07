@@ -69,6 +69,7 @@ public class Enchants {
     private void createEnchantList() {
         LocalizationManager lm = EnchantGUIPlugin.getInstance().getLm();
         var disabled = EnchantGUIPlugin.getInstance().getMainConfig().getDisabledEnchants();
+        EnchantGUIPlugin.debug("createEnchantList: disabled set size = " + disabled.size() + ", set = " + disabled);
         addItem(Enchantment.POWER, "power", matchEnchants("power"), lm.getLanguageString("enchant.power"), disabled);
         addItem(Enchantment.FLAME, "flame", matchEnchants("flame"), lm.getLanguageString("enchant.flame"), disabled);
         addItem(Enchantment.INFINITY, "infinity", matchEnchants("infinity"), lm.getLanguageString("enchant.infinity"), disabled);
@@ -125,6 +126,7 @@ public class Enchants {
      */
     private void addItem(Enchantment type, @NotNull String key, List<Material> mats, String displayName, @NotNull Set<String> disabled) {
         if (disabled.contains(key) || disabled.contains(type.getKey().getKey())) {
+            EnchantGUIPlugin.debug("BLOCKED by disabled-enchants: " + key + " (key match: " + disabled.contains(key) + ", registry \"" + type.getKey().getKey() + "\" match: " + disabled.contains(type.getKey().getKey()) + ")");
             return;
         }
         if (mats.isEmpty()) {

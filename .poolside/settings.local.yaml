@@ -23,3 +23,6 @@ tools:
             - jar xf "$JAR" *
             - sed *
             - git diff HEAD *
+            - mkdir *
+            - ls *
+            - git diff *

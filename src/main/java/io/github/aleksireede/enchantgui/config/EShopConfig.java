@@ -88,9 +88,15 @@ public class EShopConfig {
         Set<String> result = new HashSet<>();
         for (String key : disabled) {
             if (key != null && !key.isBlank()) {
-                result.add(key.toLowerCase(Locale.ROOT).trim());
+                String normalized = key.toLowerCase(Locale.ROOT).trim();
+                result.add(normalized);
+                // Also add the registry key name (e.g. "binding_curse" → "binding_curve")
+                // so that checks against type.getKey().getKey() also match
+                result.add(reverseNormalizeEnchantKey(normalized));
             }
         }
+        EnchantGUIPlugin.debug("disabled-enchants raw list: " + disabled);
+        EnchantGUIPlugin.debug("disabled-enchants normalized set: " + result);
         return result;
     }
 
@@ -118,10 +124,23 @@ public class EShopConfig {
      *   vanishing_curse → vanishing_curve
      * The config.yml uses the legacy names, so we map back when looking up.
      */
-    private static String normalizeEnchantKey(String key) {
+    public static String normalizeEnchantKey(String key) {
         return switch (key) {
             case "binding_curve" -> "binding_curse";
             case "vanishing_curve" -> "vanishing_curse";
+            default -> key;
+        };
+    }
+
+    /**
+     * Reverse mapping: config key name → registry key name.
+     * e.g. "binding_curse" → "binding_curve", "vanishing_curse" → "vanishing_curve".
+     * Used so the disabled-enchants set contains both forms.
+     */
+    public static String reverseNormalizeEnchantKey(String key) {
+        return switch (key) {
+            case "binding_curse" -> "binding_curve";
+            case "vanishing_curse" -> "vanishing_curve";
             default -> key;
         };
     }

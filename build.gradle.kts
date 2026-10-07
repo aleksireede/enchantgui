@@ -19,6 +19,7 @@ dependencies {
     implementation(libs.acf)
     implementation(libs.bstats)
     library(libs.boosted.yml)
+    library(libs.nbt.api)
     
     library(libs.annotations)
 }
