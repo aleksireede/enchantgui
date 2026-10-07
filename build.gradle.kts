@@ -53,7 +53,7 @@ bukkit {
 
 tasks {
     jar {
-        archiveClassifier.set("plain")
+        enabled = false
     }
 
     build {
@@ -62,8 +62,7 @@ tasks {
     
     shadowJar {
         // ACF (and similar libs) use reflection; minimize strips required classes.
-        archiveClassifier.set("")
-        archiveFileName.set("EnchantGUI-${project.version}.jar")
+        archiveFileName.set("enchantgui.jar")
         
         relocate("org.bstats", "io.github.aleksireede.enchantgui.util")
         relocate("co.aikar.commands", "io.github.aleksireede.enchantgui.acf")
