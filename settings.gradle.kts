@@ -7,7 +7,7 @@ dependencyResolutionManagement {
         maven ("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
         maven ("https://nexus.hc.to/content/repositories/pub_releases")
         maven ("https://oss.sonatype.org/content/groups/public/")
-        maven ("https://repo.codemc.org/repository/maven-public")
+        maven ("https://repo.codemc.io/repository/maven-public/")
         maven ("https://jitpack.io")
         maven ("https://repo.rosewooddev.io/repository/public/")
         maven ("https://repo.papermc.io/repository/maven-public/")

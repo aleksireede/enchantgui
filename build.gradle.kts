@@ -19,7 +19,7 @@ dependencies {
     implementation(libs.acf)
     implementation(libs.bstats)
     library(libs.boosted.yml)
-    library(libs.nbt.api)
+    implementation(libs.nbt.api)
     
     library(libs.annotations)
 }
@@ -69,6 +69,7 @@ tasks {
         relocate("co.aikar.locales", "io.github.aleksireede.enchantgui.locales")
         relocate("com.github.sarhatabaot.kraken", "io.github.aleksireede.enchantgui.kraken")
         relocate("dev.triumphteam", "io.github.aleksireede.enchantgui.gui")
+        relocate("de.tr7zw.changeme.nbtapi", "io.github.aleksireede.enchantgui.nbtapi")
     }
 }
 
