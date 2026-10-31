@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,17 +39,7 @@ public class Enchants {
      * Supports both list format (YAML list) and string format (single material, for backward compatibility).
      */
     private List<Material> matchEnchants(@NotNull String enchantment) {
-        String path = "shop.enchants." + enchantment;
-        var shopFile = EnchantGUIPlugin.getInstance().getLm().getActiveShopFile();
-
-        List<String> materialNames = shopFile.getStringList(path);
-        if (materialNames.isEmpty()) {
-            // Fall back to single string format for backward compatibility
-            String single = shopFile.getString(path);
-            if (single != null && !single.isEmpty()) {
-                materialNames = Collections.singletonList(single);
-            }
-        }
+        List<String> materialNames = getMaterialNames(enchantment);
 
         List<Material> result = new ArrayList<>();
         for (String mat : materialNames) {
@@ -60,6 +51,21 @@ public class Enchants {
             }
         }
         return result;
+    }
+
+    private static @NonNull List<String> getMaterialNames(@NonNull String enchantment) {
+        String path = "shop.enchants." + enchantment;
+        var shopFile = EnchantGUIPlugin.getInstance().getLm().getActiveShopFile();
+
+        List<String> materialNames = shopFile.getStringList(path);
+        if (materialNames.isEmpty()) {
+            // Fall back to single string format for backward compatibility
+            String single = shopFile.getString(path);
+            if (single != null && !single.isEmpty()) {
+                materialNames = Collections.singletonList(single);
+            }
+        }
+        return materialNames;
     }
 
     /**

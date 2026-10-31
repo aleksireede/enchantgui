@@ -1,7 +1,6 @@
 package io.github.aleksireede.enchantgui.menu;
 
 import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
-import dev.triumphteam.gui.components.GuiType;
 import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
 import io.github.aleksireede.enchantgui.EnchantGUIPlugin;
